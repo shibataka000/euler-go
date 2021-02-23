@@ -1,0 +1,22 @@
+version: 2.1
+executors:
+  golang:
+    docker:
+      - image: circleci/golang:1.15
+    working_directory: /go/src/github.com/shibataka000/euler-go
+jobs:
+  build:
+    executor:
+      name: golang
+    steps:
+      - checkout
+      - run:
+          name: Setup
+          command: make setup
+      - run:
+          name: Run tests
+          command: make ci
+workflows:
+  build:
+    jobs:
+      - build
